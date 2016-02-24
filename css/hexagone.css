@@ -1,0 +1,76 @@
+/*http://csshexagon.com*/
+
+.hex-row {
+    white-space: nowrap;
+	display: inline-block;
+	width: 400px;
+	/*width: 3300px;*/
+}
+.hex-row:nth-child(odd) {
+	margin-left: 0px;
+	margin-top: -35px;
+}
+.hex-row:nth-child(even) {
+	margin-left: 50px;
+	margin-top: -35px;
+}
+.hex-row:first-child {
+	margin-left: 0px;
+	margin-top: 0px;
+}
+.hex-content {
+	z-index: 2;
+	position: absolute;
+}
+
+
+.hexagon {
+	float: left;
+	position: relative;
+	display: inline-block;
+	width: 100px;
+	height: 57.74px;
+	background-color: #26D5C4;
+	margin: 28.87px 0;
+	border-left: solid 1.4142px #198C81;
+	border-right: solid 1.4142px #198C81;
+}
+.hexagon:before,
+.hexagon:after {
+	content: "";
+	position: absolute;
+	z-index: 1;
+	width: 70.71px;
+	height: 70.71px;
+	-webkit-transform: scaleY(0.5774) rotate(-45deg);
+	-ms-transform: scaleY(0.5774) rotate(-45deg);
+	transform: scaleY(0.5774) rotate(-45deg);
+	background-color: inherit;
+	left: 13.6447px;
+}
+.hexagon:before {
+	top: -35.3553px;
+	border-top: solid 1.4142px #198C81;
+	border-right: solid 1.4142px #198C81;
+}
+.hexagon:after {
+	bottom: -35.3553px;
+	border-bottom: solid 1.4142px #198C81;
+	border-left: solid 1.4142px #198C81;
+}
+
+/*cover up extra shadows*/
+.hexagon span.shadow {
+	display: block;
+	position: absolute;
+	top:0.5773502691896256px;
+	left: 0;
+	width:98px;
+	height:56.5803px;
+	z-index: 2;
+	background: inherit;
+}
+
+.hexagon:hover {
+	z-index: 3;
+}

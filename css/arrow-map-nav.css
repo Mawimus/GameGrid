@@ -1,0 +1,43 @@
+.strut {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+.strut,
+.nav-map,
+.nav-map > .nav-arrow,
+.nav-map > .center {
+    display: inline-block;
+    vertical-align: middle;
+}
+.nav-map {
+    text-align: center;
+    width: 100%;
+}
+.nav-map > .nav-arrow {
+    width: 0;
+    height: 0;
+    border: .5em solid transparent;
+}
+.nav-map > .center {
+    width: 5em;
+    height: 5em;
+    border-radius: 5em;
+    border: 1px solid #000;
+}
+.nav-map > .nav-arrow.up {
+    border-top-width: 0;
+    border-bottom-color: #000;
+}
+.nav-map > .nav-arrow.right {
+    border-right-width: 0;
+    border-left-color: #000;
+}
+.nav-map > .nav-arrow.down {
+    border-bottom-width: 0;
+    border-top-color: #000;
+}
+.nav-map > .nav-arrow.left {
+    border-left-width: 0;
+    border-right-color: #000;
+}

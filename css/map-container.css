@@ -1,0 +1,13 @@
+.map {
+	width: 352px;
+	height: 287px;
+	border: 1px solid #000000;
+	overflow: hidden;
+	background: repeating-linear-gradient(
+		-30deg,
+		#606dbc,
+		#606dbc 4px,
+		#465298 4px,
+		#465298 8px
+	);
+}

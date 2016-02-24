@@ -1,9 +1,10 @@
 /*http://csshexagon.com*/
 
 .hex-row {
-    white-space: nowrap;
+	/*white-space: nowrap;*/
 	display: inline-block;
-	width: 400px;
+	width: 600px;
+	/*margin-left: -50px;*/
 	/*width: 3300px;*/
 }
 .hex-row:nth-child(odd) {

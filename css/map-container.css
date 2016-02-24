@@ -1,6 +1,8 @@
 .map {
-	width: 352px;
-	height: 287px;
+	/*width: 352px;*/
+	width: 500px;
+	/*height: 287px;*/
+	height: 500px;
 	border: 1px solid #000000;
 	overflow: hidden;
 	background: repeating-linear-gradient(
@@ -10,4 +12,15 @@
 		#465298 4px,
 		#465298 8px
 	);
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+}
+.inside-map {
+	/*margin-top: -85px;*/
+	/*margin-left: -50px;*/
+}
+
+.map:focus {
+	box-shadow: 0 0 30px rgba(255,0,0,1);border-color: #5D5D5D;
 }

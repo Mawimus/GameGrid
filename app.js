@@ -6,13 +6,13 @@ app.controller('GridController', ['$scope', function ($scope) {
 		[]
 	];
 
-	// Affichage Max
-	$scope.maxx = 3 // 32 $scope.sizes[0];
-	$scope.maxy = 3 // 32 $scope.sizes[0];
+	// nombre de tuiles (pleines) max à afficher
+	$scope.maxx = 5 // 32 $scope.sizes[0];
+	$scope.maxy = 5 // 32 $scope.sizes[0];
 
-	// Coordonnée d'affichage
-	$scope.currentx = 0; // $scope.width / 2;
-	$scope.currenty = 0; // $scope.length / 2;
+	// Coordonnée d'affichage : valeurs par default
+	$scope.currentx = -2;
+	$scope.currenty = -2;
 
 	// Taille max du tableau
 	$scope.maxxTiles = 32;
@@ -36,29 +36,30 @@ app.controller('GridController', ['$scope', function ($scope) {
 		console.log('**********');
 
 		// Controle x et y
-		if (x > maxxTiles) {
-			x = maxxTiles;
+		if (x > maxxTiles - maxx + 1) {
+			x = maxxTiles - maxx + 1;
 			$scope.currentx = x;
 		}
-		if (x < 0) {
-			x = 0;
+		if (x < maxxTiles * -1) {
+			x = maxxTiles * -1;
 			$scope.currentx = x;
 		}
-		if (y > maxyTiles) {
-			y = maxyTiles;
+		if (y > maxyTiles - maxy + 1) {
+			y = maxyTiles - maxy + 1;
 			$scope.currenty = y;
 		}
-		if (y < 0) {
-			y = 0;
+		if (y < maxyTiles * -1) {
+			y = maxyTiles * -1;
 			$scope.currenty = y;
 		}
 
+		// Gestion de la fin de map
 		var startx = 0;
 		var starty = 0;
-		if (x > 0) {
+		if (x == maxxTiles - maxx + 1) {
 			startx = 1;
 		}
-		if (y > 0) {
+		if (y == maxyTiles - maxy + 1) {
 			starty = 1;
 		}
 
@@ -66,16 +67,16 @@ app.controller('GridController', ['$scope', function ($scope) {
 		var arr = [[]];
 
 		// Creates all lines:
-		for (var j = 0; j <= maxy; j++) {
+		for (var j = 0; j < maxy - starty + 1; j++) {
 			// Creates an empty line
 			arr[j] = [];
 
 			// Adds maxx to the empty line:
-			arr[j] = new Array(maxx + 1);
+			arr[j] = new Array(maxx - startx);
 
-			for (var i = 0; i <= maxx; i++) {
+			for (var i = 0; i < maxx - startx + 1; i++) {
 				// Initializes:
-				arr[j][i] = {coord: {x: i + x, y: j + y}, info: matrixTiles[i + x][j + y]};
+				arr[j][i] = {coord: {x: i + x, y: (j + y) * -1}, info: matrixTiles[i + x][(j + y) * -1]};
 			}
 		}
 
@@ -85,9 +86,9 @@ app.controller('GridController', ['$scope', function ($scope) {
 	function matrixTiles(maxxTiles, maxyTiles) {
 		var tiles = [[]];
 
-		for (var i = 0; i <= maxyTiles; i++) {
+		for (var i = maxyTiles * -1; i < maxyTiles + 1; i++) {
 			tiles[i] = [];
-			tiles[i] = new Array(maxxTiles);
+			tiles[i] = new Array(maxxTiles * 2);
 		}
 
 		tiles[0][0] = {id:11, cell: {x:1, y:1, j:1, s:1}};
@@ -126,21 +127,25 @@ app.controller('GridController', ['$scope', function ($scope) {
 
 	// Controle de la map avec les flèches
 	$scope.navMapMoveReset = function() {
-		$scope.currentx = $scope.currenty = 0;
+		$scope.currentx = $scope.currenty = -2;
 	}
 	$scope.navMapMoveToUp = function() {
+		// Y axis
 		$scope.currenty--;
 		// $scope.tiles = matrix($scope.maxx, $scope.maxy, $scope.currentx, $scope.currenty--, $scope.maxxTiles, $scope.maxyTiles, $scope.tilesInfo);
 	}
 	$scope.navMapMoveToRight = function() {
+		// X axis
 		$scope.currentx++;
 		// $scope.tiles = matrix($scope.maxx, $scope.maxy, $scope.currentx++, $scope.currenty, $scope.maxxTiles, $scope.maxyTiles, $scope.tilesInfo);
 	}
 	$scope.navMapMoveToDown = function() {
+		// Y axis
 		$scope.currenty++;
 		// $scope.tiles = matrix($scope.maxx, $scope.maxy, $scope.currentx, $scope.currenty++, $scope.maxxTiles, $scope.maxyTiles, $scope.tilesInfo);
 	}
 	$scope.navMapMoveToLeft = function() {
+		// X axis
 		$scope.currentx--;
 		// $scope.tiles = matrix($scope.maxx, $scope.maxy, $scope.currentx--, $scope.currenty, $scope.maxxTiles, $scope.maxyTiles, $scope.tilesInfo);
 	}

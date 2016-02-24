@@ -23,3 +23,7 @@
 .hexagon.tile-player-3:hover::before,.hexagon.tile-player-1:hover::after {box-shadow: 0 0 35px rgba(110,110,110,0.7);}
 .hexagon.tile-player-3:hover::before {border-top-color: #5D5D5D;border-right-color: #5D5D5D;}
 .hexagon.tile-player-3:hover::after {border-bottom-color: #5D5D5D;border-left-color: #5D5D5D;}
+
+.square.tile-player-1:hover {box-shadow: 0 0 35px rgba(0,255,0,0.7);border-color: #00EE00;}
+.square.tile-player-2:hover {box-shadow: 0 0 35px rgba(255,0,0,0.7);border-color: #EE0000;}
+.square.tile-player-3:hover {box-shadow: 0 0 35px rgba(110,110,110,0.7);border-color: #5D5D5D;}

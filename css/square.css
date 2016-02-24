@@ -1,0 +1,34 @@
+.square-row {
+	display: inline-block;
+	width: 600px;
+}
+.square-content {
+	z-index: 2;
+	position: absolute;
+}
+.square {
+	float: left;
+	position: relative;
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	background-color: #26D5C4;
+	margin: 0;
+	border: solid 1px #198C81;
+}
+
+/*cover up extra shadows*/
+/*.square span.shadow {
+	display: block;
+	position: absolute;
+	top: 0.5773502691896256px;
+	left: 0;
+	width: 98px;
+	height: 56.5803px;
+	z-index: 2;
+	background: inherit;
+}*/
+
+.square:hover {
+	z-index: 3;
+}

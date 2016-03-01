@@ -4,22 +4,26 @@
 		<meta charset="utf-8" />
 
 		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
 
 		<!-- Optional theme -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous" />
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous" />
 
 		<link rel="stylesheet" type="text/css" href="./css/arrow-map-nav.css">
-		<link rel="stylesheet" href="./css/map-container.css" />
-		<link rel="stylesheet" href="./css/hexagone.css" />
-		<link rel="stylesheet" href="./css/tiles.css" />
+		<link rel="stylesheet" type="text/css" href="./css/map-container.css" />
+		<link rel="stylesheet" type="text/css" href="./css/hexagone.css" />
+		<link rel="stylesheet" type="text/css" href="./css/square.css" />
+		<link rel="stylesheet" type="text/css" href="./css/tiles.css" />
+
+		<link rel="stylesheet" type="text/css" href="./css/animation.css" />
 
 		<title>GameGrid</title>
 	</head>
-	<body ng-controller="GridController">
+	<body ng-controller="SquareGridController">
 
 		<div class="container">
 			<div class="row">
+
 				<div class="col-md-2">
 
 					<div class="strut"></div>
@@ -35,33 +39,83 @@
 
 				</div>
 
-				<div class="col-md-8">
+				<!-- Hexagone -->
+				<!-- <div class="col-md-5">
 					<div class="map" tabindex="0" ng-keydown="navMapMoveKeyPress($event)">
-						<div class="hex-row" ng-repeat="row in tiles track by $index">
-							<div class="hexagon tile-ground-{{tile.info.cell.s}} tile-player-{{tile.info.cell.j}}" ng-repeat="tile in row track by $index">
-								<span class="shadow"></span>
-								<div class="hex-content">
-									<div class="tile-player tile-player-{{tile.info.cell.j}}"></div>
-									<p>({{tile.info.cell.x}} | {{tile.info.cell.y}})</p>
-									<p>x:{{tile.coord.x}} y:{{tile.coord.y}}</p>
+						<div class="inside-map" ng-animate="'slide'">
+							<div class="hex-row" ng-repeat="row in tiles track by $index">
+								<div class="hexagon tile-ground-{{tile.info.cell.s}} tile-player-{{tile.info.cell.j}}" ng-repeat="tile in row track by $index">
+									<span class="shadow"></span>
+									<div class="hex-content">
+										<div class="tile-player tile-player-{{tile.info.cell.j}}"></div>
+										<p>({{tile.info.cell.x}} | {{tile.info.cell.y}})</p>
+										<p>x:{{tile.coord.x}} y:{{tile.coord.y}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> -->
+
+				<!-- Square -->
+				<div class="col-md-5">
+					<div class="map" tabindex="0" ng-keydown="navMapMoveKeyPress($event)">
+						<div class="inside-map">
+							<div class="square-row" ng-repeat="row in tiles track by $index">
+								<div class="square tile-ground-{{tile.field.type}} tile-player-{{tile.owner.type}}" ng-repeat="tile in row track by $index" ng-dblclick="tileShowInfo(tile.info.id, tile.coord.x, tile.coord.y)">
+									<!-- <span class="shadow"></span> -->
+									<div class="square-content">
+										<div class="tile-player tile-player-{{tile.owner.type}}"></div>
+										<p>({{tile.coord.x}} | {{tile.coord.y}})</p>
+										<!-- <p>x:{{tile.coord.x}} y:{{tile.coord.y}}</p> -->
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-2">.col-md-1</div>
+
 			</div>
 		</div>
 
-		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+		<div id="modalTileInfo" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<!-- <div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Modal title</h4>
+					</div> -->
+					<div class="modal-body">
+						<div class="spinner center-block"><img src="./images/loader/kit.gif" alt="spinner"></div>
+						<div class="tile-info">
+							<div class="coord">({{tileInfo.coord.x}} | {{tileInfo.coord.y}})</div>
+							<div class="owner">owner : {{tileInfo.owner.name}}</div>
+							<div class="owner">type : {{tileInfo.owner.type}}</div>
+							<div class="owner">class : {{tileInfo.owner.class}}</div>
+							<div class="field">field : {{tileInfo.field.type}}</div>
+						</div>
+					</div>
+					<!-- <div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div> -->
+				</div>
+			</div>
+		</div>
+
+
+
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.min.js"></script> -->
 
 		<!-- Script Angular -->
-		<script src="./app.js"></script>
-
+		<script type="text/javascript" src="./app.js"></script>
+		<!-- <script type="text/javascript" src="./Controllers/HexagonGridController.js"></script> -->
+		<script type="text/javascript" src="./Controllers/SquareGridController.js"></script>
 
 		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 	</body>
 </html>

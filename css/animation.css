@@ -1,8 +1,8 @@
-/*.repeated-item.ng-enter, .repeated-item.ng-move {
+.slide-enter, .slide-move {
+
 	-webkit-transition:0.5s linear all;
 	-moz-transition:0.5s linear all;
 	-o-transition:0.5s linear all;
 	transition:0.5s linear all;
 	opacity:0;
 }
-*/

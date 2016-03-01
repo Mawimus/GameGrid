@@ -1,15 +1,16 @@
-.tile-ground-1 {background-color: #4A6165;}
-.tile-ground-2 {background-color: #37A43D;}
-.tile-ground-3 {background-color: #E0EA52;}
-.tile-ground-4 {background-color: #69DCF9;}
-.tile-ground-5 {background-color: #6EFCA5;}
+.tile-ground-mountain {background-color: #4A6165;}
+.tile-ground-forest {background-color: #37A43D;}
+.tile-ground-desert {background-color: #E0EA52;}
+.tile-ground-sea {background-color: #69DCF9;}
+.tile-ground-lowland {background-color: #6EFCA5;}
 
 .tile-player {width: 10px; height: 10px;}
-.tile-player.tile-player-1 {background-color: #00FF00;}
-.tile-player.tile-player-2 {background-color: #FF0000;}
-.tile-player.tile-player-3 {background-color: #6E6E6E;}
+.tile-player.tile-player-player {background-color: #00FF00;}
+.tile-player.tile-player-enemy {background-color: #FF0000;}
+.tile-player.tile-player-nature {background-color: #6E6E6E;}
+.tile-player.tile-player-barbarian {background-color: #BB7755;}
 
-.hexagon.tile-player-1:hover {box-shadow: 0 0 35px rgba(0,255,0,0.7);border-left-color: #00EE00;border-right-color: #00EE00;}
+/*.hexagon.tile-player-1:hover {box-shadow: 0 0 35px rgba(0,255,0,0.7);border-left-color: #00EE00;border-right-color: #00EE00;}
 .hexagon.tile-player-1:hover::before,.hexagon.tile-player-1:hover::after {box-shadow: 0 0 35px rgba(0,255,0,0.7);}
 .hexagon.tile-player-1:hover::before {border-top-color: #00EE00;border-right-color: #00EE00;}
 .hexagon.tile-player-1:hover::after {border-bottom-color: #00EE00;border-left-color: #00EE00;}
@@ -22,8 +23,9 @@
 .hexagon.tile-player-3:hover {box-shadow: 0 0 35px rgba(110,110,110,0.7);border-left-color: #5D5D5D;border-right-color: #5D5D5D;}
 .hexagon.tile-player-3:hover::before,.hexagon.tile-player-1:hover::after {box-shadow: 0 0 35px rgba(110,110,110,0.7);}
 .hexagon.tile-player-3:hover::before {border-top-color: #5D5D5D;border-right-color: #5D5D5D;}
-.hexagon.tile-player-3:hover::after {border-bottom-color: #5D5D5D;border-left-color: #5D5D5D;}
+.hexagon.tile-player-3:hover::after {border-bottom-color: #5D5D5D;border-left-color: #5D5D5D;}*/
 
-.square.tile-player-1:hover {box-shadow: 0 0 35px rgba(0,255,0,0.7);border-color: #00EE00;}
-.square.tile-player-2:hover {box-shadow: 0 0 35px rgba(255,0,0,0.7);border-color: #EE0000;}
-.square.tile-player-3:hover {box-shadow: 0 0 35px rgba(110,110,110,0.7);border-color: #5D5D5D;}
+.square.tile-player-player:hover {box-shadow: 0 0 35px rgba(0,255,0,0.7);border-color: #00EE00;}
+.square.tile-player-enemy:hover {box-shadow: 0 0 35px rgba(255,0,0,0.7);border-color: #EE0000;}
+.square.tile-player-nature:hover {box-shadow: 0 0 35px rgba(110,110,110,0.7);border-color: #5D5D5D;}
+.square.tile-player-barbarian:hover {box-shadow: 0 0 35px rgba(187,119,85,0.7);border-color: #AA6644;}

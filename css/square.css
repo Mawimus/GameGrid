@@ -1,9 +1,9 @@
 .square-row {
-	display: inline-block;
-	width: 600px;
+	/*display: inline-block;*/
+	width: 500px;
 }
 .square-content {
-	z-index: 2;
+	/*z-index: 2;*/
 	position: absolute;
 }
 .square {

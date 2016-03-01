@@ -1,8 +1,6 @@
 app.controller('SquareGridController', ['$scope', function ($scope) {
 
-	$scope.tiles = [
-		[]
-	];
+	$scope.tiles = [[]];
 
 	// nombre de tuiles (pleines) max à afficher
 	$scope.maxx = 5;
@@ -159,7 +157,7 @@ app.controller('SquareGridController', ['$scope', function ($scope) {
 		tiles[1][0] = {id:21, coord: {x:1, y:0}, owner: {id:0, type:'nature', name:'Nature', class:'nature'}, field: {type:'forest'}};
 		tiles[2][0] = {id:31, coord: {x:2, y:0}, owner: {id:0, type:'nature', name:'Nature', class:'nature'}, field: {type:'desert'}};
 		tiles[3][0] = {id:41, coord: {x:3, y:0}, owner: {id:0, type:'nature', name:'Nature', class:'nature'}, field: {type:'mountain'}};
-		tiles[4][0] = {id:51, coord: {x:4, y:0}, owner: {id:0, type:'nature', name:'Nature', class:'nature'}, field: {type:'mountain'}};
+		tiles[4][0] = {id:51, coord: {x:4, y:0}, owner: {id:0, type:'ally', name:'Poudjik', class:'Egyptien'}, field: {type:'mountain'}};
 
 		tiles[0][1] = {id:12, coord: {x:0, y:1}, owner: {id:0, type:'nature', name:'Nature', class:'nature'}, field: {type:'sea'}};
 		tiles[1][1] = {id:22, coord: {x:1, y:1}, owner: {id:0, type:'nature', name:'Nature', class:'nature'}, field: {type:'lowland'}};
@@ -183,7 +181,7 @@ app.controller('SquareGridController', ['$scope', function ($scope) {
 		tiles[1][4] = {id:25, coord: {x:1, y:4}, owner: {id:0, type:'nature', name:'Nature', class:'nature'}, field: {type:'mountain'}};
 		tiles[2][4] = {id:35, coord: {x:2, y:4}, owner: {id:0, type:'nature', name:'Nature', class:'nature'}, field: {type:'forest'}};
 		tiles[3][4] = {id:45, coord: {x:3, y:4}, owner: {id:0, type:'nature', name:'Nature', class:'nature'}, field: {type:'desert'}};
-		tiles[4][4] = {id:55, coord: {x:4, y:4}, owner: {id:2, type:'enemy',  name:'Poudjik', class:'gallic'}, field: {type:'desert'}};
+		tiles[4][4] = {id:55, coord: {x:4, y:4}, owner: {id:2, type:'enemy',  name:'Ququ', class:'gallic'}, field: {type:'desert'}};
 
 		return tiles;
 	}

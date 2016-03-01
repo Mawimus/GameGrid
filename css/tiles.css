@@ -7,6 +7,7 @@
 .tile-player {width: 10px; height: 10px;}
 .tile-player.tile-player-player {background-color: #00FF00;}
 .tile-player.tile-player-enemy {background-color: #FF0000;}
+.tile-player.tile-player-ally {background-color: #FACC2E;}
 .tile-player.tile-player-nature {background-color: #6E6E6E;}
 .tile-player.tile-player-barbarian {background-color: #BB7755;}
 
@@ -27,5 +28,6 @@
 
 .square.tile-player-player:hover {box-shadow: 0 0 35px rgba(0,255,0,0.7);border-color: #00EE00;}
 .square.tile-player-enemy:hover {box-shadow: 0 0 35px rgba(255,0,0,0.7);border-color: #EE0000;}
+.square.tile-player-ally:hover {box-shadow: 0 0 35px rgba(250,204,46,0.7);border-color: #E9BB1D;}
 .square.tile-player-nature:hover {box-shadow: 0 0 35px rgba(110,110,110,0.7);border-color: #5D5D5D;}
 .square.tile-player-barbarian:hover {box-shadow: 0 0 35px rgba(187,119,85,0.7);border-color: #AA6644;}

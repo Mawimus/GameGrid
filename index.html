@@ -27,15 +27,24 @@
 				<div class="col-md-2">
 
 					<div class="strut"></div>
-					<nav class="nav-map">
-						<a href="#" class="nav-arrow up" ng-click="navMapMoveToUp()"></a>
-						<br />
-						<a href="#" class="nav-arrow left" ng-click="navMapMoveToLeft()"></a>
-						<a class="center" ng-click="navMapMoveReset()"></a>
-						<a href="#" class="nav-arrow right" ng-click="navMapMoveToRight()"></a>
-						<br />
-						<a href="#" class="nav-arrow down" ng-click="navMapMoveToDown()"></a>
-					</nav>
+					<div>
+						<nav class="nav-map">
+							<a href="#" class="nav-arrow up" ng-click="navMapMoveToUp()"></a>
+							<br />
+							<a href="#" class="nav-arrow left" ng-click="navMapMoveToLeft()"></a>
+							<a class="center" ng-click="navMapMoveReset()"></a>
+							<a href="#" class="nav-arrow right" ng-click="navMapMoveToRight()"></a>
+							<br />
+							<a href="#" class="nav-arrow down" ng-click="navMapMoveToDown()"></a>
+						</nav>
+					</div>
+
+					<div>
+						<label for="">x</label>
+						<input type="text" value="{{currentx}}" class="nav-map-x" ng-model="currentx">
+						<label for="">y</label>
+						<input type="text" value="{{currenty * -1}}" class="nav-map-y" ng-model="currenty">
+					</div>
 
 				</div>
 

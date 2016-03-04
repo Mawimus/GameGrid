@@ -1,0 +1,7 @@
+app.factory('UserFactory', function() {
+
+
+
+
+
+});

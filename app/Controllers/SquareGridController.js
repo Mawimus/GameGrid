@@ -3,8 +3,8 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 	$scope.tiles = [[]];
 
 	// nombre de tuiles (pleines) max à afficher
-	$scope.maxx = 5;
-	$scope.maxy = 5;
+	$scope.maxx = 7;
+	$scope.maxy = 7;
 
 	// Coordonnée d'affichage : valeurs par default
 	$scope.currentx = 0;
@@ -62,13 +62,17 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 	}
 
 
-	$scope.tileShowInfo = function(id, x, y) {
+	$scope.tileShowInfo = function(id) {
 		// chargement des infos de la tuile sélectionnée dans la modale
 		$('.spinner').show();
 		$('.tile-info').hide();
 		$('#modalTileInfo').modal('show');
 
-		$scope.tileInfo = $scope.tilesInfo[x][y];
+		// var matrixTileIndex = _.findIndex(_.flatten($scope.tilesInfo), {id: id});
+		// console.log('matrixTileIndex %s', matrixTileIndex);
+
+		// $scope.tileInfo = $scope.tilesInfo[x][y];
+		$scope.tileInfo = _.first(_.filter(_.flatten($scope.tilesInfo), {id: id}));
 
 		$('.spinner').hide();
 		$('.tile-info').show();
@@ -82,11 +86,48 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 		$scope.tileInfo = {};
 	}
 
+	$scope.tileEnter = function() {
+		// Entrer dans la tuile
+		// Uniquement si elle appartient au joueur
+		console.log('Enter Action');
+	}
+
+	$scope.tileHelp = function() {
+		// Aider la tuile
+		// Uniquement si elle appartient à un allié
+		console.log('Help Action');
+	}
+
+	$scope.tilePock = function() {
+		// Faire un signe de vie à la tuile
+		// Uniquement si elle appartient à un joueur neutre
+		console.log('Pock Action');
+	}
+
+	$scope.tileAttack = function() {
+		// Attaquer la tuile
+		// Uniquement si elle appartient à un enemie
+		console.log('Attack Action');
+	}
+
+	$scope.tileRaid = function() {
+		// Lancer un raid sur la tuile
+		// Uniquement si elle appartient à un barbare
+		console.log('Raid Action');
+	}
+
+	$scope.tileExplore = function() {
+		// Lancer une exploration sur la tuile
+		// Uniquement si elle appartient à personne -> à la nature
+		console.log('Explore Action');
+	}
+
+
 	function resetMapCoord() {
-		// $scope.currentx = Math.ceil(($scope.maxx * -1) / 2);
-		// $scope.currenty = Math.ceil(($scope.maxy * -1) / 2);
-		$scope.currentx = 0;
-		$scope.currenty = -4;
+		$scope.currentx = Math.ceil(($scope.maxx * -1) / 2);
+		$scope.currenty = Math.ceil(($scope.maxy * -1) / 2);
+		// $scope.currentx = -2;
+		// $scope.currenty = -2;
 	}
 
 
@@ -128,17 +169,18 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 		var arr = [[]];
 
 		// Creates all lines:
-		for (var j = 0; j < maxy - starty; j++) {
+		for (var j = 0; j < maxy /*- starty*/; j++) {
 			// Creates an empty line
 			arr[j] = [];
 
 			// Adds maxx to the empty line:
 			arr[j] = new Array(maxx - startx);
 
-			for (var i = 0; i < maxx - startx; i++) {
+			for (var i = 0; i < maxx /*- startx*/; i++) {
 				// Initializes:
+				// console.log('i %s', i);
 				if (typeof matrixTiles != 'undefined') {
-					arr[j][i] = matrixTiles[i + x][(j + y) * -1];
+					arr[j][i] = matrixTiles[i + x + 32][(j + y - 32) * -1];
 				}
 			}
 		}

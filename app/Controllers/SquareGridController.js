@@ -136,6 +136,7 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 	}
 
 	function matrix(maxx, maxy, x, y, maxxTiles, maxyTiles, matrixTiles) {
+		// console.log(matrixTiles);
 
 		// Controle x et y
 		if (x > maxxTiles - maxx + 1) {
@@ -180,7 +181,10 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 				// Initializes:
 				// console.log('i %s', i);
 				if (typeof matrixTiles != 'undefined') {
-					arr[j][i] = matrixTiles[i + x + 32][(j + y - 32) * -1];
+					// console.log(i + x + 32);
+					// console.log((j + y - 32) * -1);
+					// arr[j][i] = matrixTiles[i + x + 32][(j + y - 32) * -1];
+					arr[j][i] = matrixTiles[i][j];
 				}
 			}
 		}
@@ -207,6 +211,7 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 		TilesFactory.get(dataSend, function(data) {
 			angular.extend(tiles, data.matrixTiles);
 			makeMap();
+			console.log(tiles);
 			return tiles;
 		});
 

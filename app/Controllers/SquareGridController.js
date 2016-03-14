@@ -27,23 +27,19 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 	}
 	$scope.navMapMoveToUp = function() {
 		// Y axis
-		// if ($scope.currenty > 0) $scope.currenty--;
-		if ($scope.currentx > 0) $scope.currentx--;
+		if ($scope.currenty > 0) $scope.currenty--;
 	}
 	$scope.navMapMoveToRight = function() {
 		// X axis
-		// if ($scope.currentx < $scope.maxxTiles - $scope.maxx) $scope.currentx++;
-		if ($scope.currenty < $scope.maxyTiles - $scope.maxy) $scope.currenty++;
+		if ($scope.currentx < $scope.maxxTiles - $scope.maxx) $scope.currentx++;
 	}
 	$scope.navMapMoveToDown = function() {
 		// Y axis
-		// if ($scope.currenty < $scope.maxyTiles - $scope.maxy) $scope.currenty++;
-		if ($scope.currentx < $scope.maxxTiles - $scope.maxx) $scope.currentx++;
+		if ($scope.currenty < $scope.maxyTiles - $scope.maxy) $scope.currenty++;
 	}
 	$scope.navMapMoveToLeft = function() {
 		// X axis
-		// if ($scope.currentx > 0) $scope.currentx--;
-		if ($scope.currenty > 0) $scope.currenty--;
+		if ($scope.currentx > 0) $scope.currentx--;
 	}
 
 	// http://stackoverflow.com/questions/25464579/is-it-possible-to-listen-for-arrow-keyspress-using-ng-keypress
@@ -138,62 +134,9 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 
 
 	function makeMap() {
-		// $scope.tiles = matrix($scope.maxx, $scope.maxy, $scope.currentx, $scope.currenty, $scope.maxxTiles, $scope.maxyTiles, $scope.tilesInfo);
 		getMatrixTiles(function(tiles) {
 			$scope.tiles = tiles;
 		});
-	}
-
-	function matrix(maxx, maxy, x, y, maxxTiles, maxyTiles, matrixTiles) {
-		console.log('makemap');
-
-		// Controle x et y
-		if (x > maxxTiles - maxx) {
-			x = maxxTiles - maxx;
-			$scope.currentx = x;
-			return;
-		}
-		if (x < 0) {
-			x = 0;
-			$scope.currentx = x;
-			return;
-		}
-		if (y > maxyTiles - maxy) {
-			y = maxyTiles - maxy;
-			$scope.currenty = y;
-			return;
-		}
-		if (y < 0) {
-			y = 0;
-			$scope.currenty = y;
-			return;
-		}
-
-		// code from here http://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript
-		var arr = [[]];
-
-		// Creates all lines:
-		for (var j = 0; j < maxy; j++) {
-			// Creates an empty line
-			arr[j] = [];
-
-			// Adds maxx to the empty line:
-			arr[j] = new Array(maxx);
-
-			for (var i = 0; i < maxx; i++) {
-				// Initializes:
-				// console.log('i %s', i);
-				if (typeof matrixTiles != 'undefined') {
-					// Le tableau et tab[y][x]
-					arr[j][i] = matrixTiles[j][i];
-				}
-				 else {
-				 	return;
-				 }
-			}
-		}
-
-		return arr;
 	}
 
 	function getMatrixTiles(callback) {

@@ -14,6 +14,6 @@ app.factory('TilesFactory', function($resource){
 
 	var apiUrl = 'http://localhost:3000';
 
-	return $resource(apiUrl + '/matrix-tiles/:maxx/:maxy/:x/:y/');
+	return $resource(apiUrl + '/matrix-tiles/:maxxtiles/:maxytiles/:maxx/:maxy/:currentx/:currenty/');
 
 });

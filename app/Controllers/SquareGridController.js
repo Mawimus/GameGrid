@@ -4,7 +4,7 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 
 	// nombre de tuiles (pleines) max à afficher
 	$scope.maxx = 7;
-	$scope.maxy = 7;
+	$scope.maxy = $scope.maxx;
 
 	// Coordonnée d'affichage : valeurs par default
 	$scope.currentx = 0;
@@ -12,14 +12,14 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 	resetMapCoord();
 
 	// Taille max du tableau
-	$scope.maxxTiles = 32;
-	$scope.maxyTiles = 32;
+	$scope.maxxTiles = 65; // 32
+	$scope.maxyTiles = $scope.maxxTiles;
 
 	// Récupération du design des tuiles
-	$scope.tilesInfo = getMatrixTiles();
+	// makeMap();
 	$scope.tileInfo = {};
 
-	$scope.$watch('[currentx, currenty]', getMatrixTiles, true);
+	$scope.$watch('[currentx, currenty]', makeMap, true);
 
 	// Controle de la map avec les flèches
 	$scope.navMapMoveReset = function() {
@@ -27,19 +27,23 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 	}
 	$scope.navMapMoveToUp = function() {
 		// Y axis
-		$scope.currenty--;
+		// if ($scope.currenty > 0) $scope.currenty--;
+		if ($scope.currentx > 0) $scope.currentx--;
 	}
 	$scope.navMapMoveToRight = function() {
 		// X axis
-		$scope.currentx++;
+		// if ($scope.currentx < $scope.maxxTiles - $scope.maxx) $scope.currentx++;
+		if ($scope.currenty < $scope.maxyTiles - $scope.maxy) $scope.currenty++;
 	}
 	$scope.navMapMoveToDown = function() {
 		// Y axis
-		$scope.currenty++;
+		// if ($scope.currenty < $scope.maxyTiles - $scope.maxy) $scope.currenty++;
+		if ($scope.currentx < $scope.maxxTiles - $scope.maxx) $scope.currentx++;
 	}
 	$scope.navMapMoveToLeft = function() {
 		// X axis
-		$scope.currentx--;
+		// if ($scope.currentx > 0) $scope.currentx--;
+		if ($scope.currenty > 0) $scope.currenty--;
 	}
 
 	// http://stackoverflow.com/questions/25464579/is-it-possible-to-listen-for-arrow-keyspress-using-ng-keypress
@@ -72,7 +76,7 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 		// console.log('matrixTileIndex %s', matrixTileIndex);
 
 		// $scope.tileInfo = $scope.tilesInfo[x][y];
-		$scope.tileInfo = _.first(_.filter(_.flatten($scope.tilesInfo), {id: id}));
+		$scope.tileInfo = _.first(_.filter(_.flatten($scope.tiles), {id: id}));
 
 		$('.spinner').hide();
 		$('.tile-info').show();
@@ -124,109 +128,101 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 
 
 	function resetMapCoord() {
-		$scope.currentx = Math.ceil(($scope.maxx * -1) / 2);
-		$scope.currenty = Math.ceil(($scope.maxy * -1) / 2);
+		$scope.currentx = 0;
+		$scope.currenty = 0;
+		// $scope.currentx = Math.ceil(($scope.maxx * -1) / 2);
+		// $scope.currenty = Math.ceil(($scope.maxy * -1) / 2);
 		// $scope.currentx = -2;
 		// $scope.currenty = -2;
 	}
 
 
 	function makeMap() {
-		$scope.tiles = matrix($scope.maxx, $scope.maxy, $scope.currentx, $scope.currenty, $scope.maxxTiles, $scope.maxyTiles, $scope.tilesInfo);
+		// $scope.tiles = matrix($scope.maxx, $scope.maxy, $scope.currentx, $scope.currenty, $scope.maxxTiles, $scope.maxyTiles, $scope.tilesInfo);
+		getMatrixTiles(function(tiles) {
+			$scope.tiles = tiles;
+		});
 	}
 
 	function matrix(maxx, maxy, x, y, maxxTiles, maxyTiles, matrixTiles) {
-		// console.log(matrixTiles);
+		console.log('makemap');
 
 		// Controle x et y
-		if (x > maxxTiles - maxx + 1) {
-			x = maxxTiles - maxx + 1;
+		if (x > maxxTiles - maxx) {
+			x = maxxTiles - maxx;
 			$scope.currentx = x;
+			return;
 		}
-		if (x < maxxTiles * -1) {
-			x = maxxTiles * -1;
+		if (x < 0) {
+			x = 0;
 			$scope.currentx = x;
+			return;
 		}
-		if (y > maxyTiles - maxy + 1) {
-			y = maxyTiles - maxy + 1;
+		if (y > maxyTiles - maxy) {
+			y = maxyTiles - maxy;
 			$scope.currenty = y;
+			return;
 		}
-		if (y < maxyTiles * -1) {
-			y = maxyTiles * -1;
+		if (y < 0) {
+			y = 0;
 			$scope.currenty = y;
-		}
-
-		// Gestion de la fin de map
-		var startx = 0;
-		var starty = 0;
-		if (x == maxxTiles - maxx + 1) {
-			startx = 1;
-		}
-		if (y == maxyTiles - maxy + 1) {
-			starty = 1;
+			return;
 		}
 
 		// code from here http://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript
 		var arr = [[]];
 
 		// Creates all lines:
-		for (var j = 0; j < maxy /*- starty*/; j++) {
+		for (var j = 0; j < maxy; j++) {
 			// Creates an empty line
 			arr[j] = [];
 
 			// Adds maxx to the empty line:
-			arr[j] = new Array(maxx - startx);
+			arr[j] = new Array(maxx);
 
-			for (var i = 0; i < maxx /*- startx*/; i++) {
+			for (var i = 0; i < maxx; i++) {
 				// Initializes:
 				// console.log('i %s', i);
 				if (typeof matrixTiles != 'undefined') {
-					// console.log(i + x + 32);
-					// console.log((j + y - 32) * -1);
-					// arr[j][i] = matrixTiles[i + x + 32][(j + y - 32) * -1];
-					arr[j][i] = matrixTiles[i][j];
+					// Le tableau et tab[y][x]
+					arr[j][i] = matrixTiles[j][i];
 				}
+				 else {
+				 	return;
+				 }
 			}
 		}
 
 		return arr;
 	}
 
-	function getMatrixTiles() {
+	function getMatrixTiles(callback) {
+		console.log('getMatrixTiles');
+
 		var tiles = [[]];
 		var maxx, maxy, currentx, currenty, maxxTiles, maxyTiles;
-		maxx = $scope.maxx;
-		maxy = $scope.maxy;
-		currentx = $scope.currentx;
-		currenty = $scope.currenty * -1;
-		maxxTiles = $scope.maxxTiles;
-		maxyTiles = $scope.maxyTiles;
+		maxx = parseInt($scope.maxx);
+		maxy = parseInt($scope.maxy);
+		currentx = parseInt($scope.currentx);
+		currenty = parseInt($scope.currenty);
+		maxxTiles = parseInt($scope.maxxTiles);
+		maxyTiles = parseInt($scope.maxyTiles);
 
-		for (var i = maxyTiles * -1; i < maxyTiles + 1; i++) {
-			tiles[i] = [];
-			tiles[i] = new Array(maxxTiles * 2);
+		console.log('(%s | %s)', currentx, currenty);
+
+		for (var j = 0; j < maxy; j++) {
+			tiles[j] = [];
+			tiles[j] = new Array(maxx);
 		}
 
-		var dataSend = {maxx:maxx, maxy:maxy, x:currentx, y:currenty};
+		var dataSend = {maxxtiles: maxxTiles, maxytiles: maxyTiles, maxx: maxx, maxy: maxy, currentx: currentx, currenty: currenty};
 		TilesFactory.get(dataSend, function(data) {
 			angular.extend(tiles, data.matrixTiles);
-			makeMap();
-			console.log(tiles);
-			return tiles;
+			tiles = data.matrixTiles;
+			if (typeof callback === 'function') {
+				callback(tiles);
+			}
 		});
-
-		// TilesFactory.GetMatrixTiles(maxx, maxy, x, y, function(data, status) {
-		// 	// console.log('data: %o', data);
-		// 	// console.log('status: %s', status);
-		// 	// tiles = data;
-		// 	angular.extend(tiles, data);
-		// 	// console.log('tiles : %o', tiles);
-
-		// 	makeMap();
-		// 	return tiles;
-		// });
-
-		return tiles;
 	}
 
 });

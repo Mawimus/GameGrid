@@ -48,7 +48,7 @@
 			<div class="map" tabindex="0" ng-keydown="navMapMoveKeyPress($event)">
 				<div class="inside-map">
 					<div class="square-row" ng-repeat="row in tiles track by $index">
-						<div class="square tile-ground-{{tile.field}} tile-player-{{tile.owner}}" ng-repeat="tile in row track by $index" ng-dblclick="tileShowInfo(tile.id)">
+						<div class="square tile-ground-{{tile.field}} tile-player-{{tile.owner}}" ng-repeat="tile in row track by $index" ng-dblclick="tileShowInfo(tile._id)">
 							<!-- <span class="shadow"></span> -->
 							<div class="square-content">
 								<div class="tile-player tile-player-{{tile.owner}}"></div>
@@ -75,10 +75,10 @@
 				<div class="spinner center-block"><img src="./images/loader/kit.gif" alt="spinner"></div>
 				<div class="tile-info">
 					<div class="tile-coord">coordonnées : ({{tileInfo.coord.x}} | {{tileInfo.coord.y}})</div>
-					<div class="tile-owner">owner : {{tileInfo.owner.name}}</div>
-					<div class="tile-owner-type">type : {{tileInfo.owner.type}}</div>
-					<div class="tile-owner-class">class : {{tileInfo.owner.class}}</div>
-					<div class="tile-field-type">field : {{tileInfo.field.type}}</div>
+					<div class="tile-owner">owner : {{tileInfo.owner}}</div>
+					<div class="tile-owner-type">type : {{tileInfo.owner}}</div>
+					<div class="tile-owner-class">class : {{tileInfo.owner}}</div>
+					<div class="tile-field-type">field : {{tileInfo.field}}</div>
 				</div>
 				<div class="tile-action-{{tileInfo.owner.type}}">
 					<label for="">Action</label>

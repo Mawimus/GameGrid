@@ -72,7 +72,7 @@ app.controller('SquareGridController', ['$scope', 'TilesFactory', function ($sco
 		// console.log('matrixTileIndex %s', matrixTileIndex);
 
 		// $scope.tileInfo = $scope.tilesInfo[x][y];
-		$scope.tileInfo = _.first(_.filter(_.flatten($scope.tiles), {id: id}));
+		$scope.tileInfo = _.first(_.filter(_.flatten($scope.tiles), {_id: id}));
 
 		$('.spinner').hide();
 		$('.tile-info').show();

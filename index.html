@@ -5,137 +5,47 @@
 
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
-
 		<!-- Optional theme -->
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous" />
 
+		<!-- Custom theme -->
 		<link rel="stylesheet" type="text/css" href="./css/arrow-map-nav.css">
 		<link rel="stylesheet" type="text/css" href="./css/map-container.css" />
 		<link rel="stylesheet" type="text/css" href="./css/hexagone.css" />
 		<link rel="stylesheet" type="text/css" href="./css/square.css" />
 		<link rel="stylesheet" type="text/css" href="./css/tiles.css" />
 
+		<!-- Themes d'animation -->
 		<link rel="stylesheet" type="text/css" href="./css/animation.css" />
 
 		<title>GameGrid</title>
 	</head>
-	<body ng-controller="SquareGridController">
+	<body>
 
-		<div class="container">
-			<div class="row">
-
-				<div class="col-md-2">
-
-					<div class="strut"></div>
-					<div>
-						<nav class="nav-map">
-							<a href="#" class="nav-arrow up" ng-click="navMapMoveToUp()"></a>
-							<br />
-							<a href="#" class="nav-arrow left" ng-click="navMapMoveToLeft()"></a>
-							<a class="center" ng-click="navMapMoveReset()"></a>
-							<a href="#" class="nav-arrow right" ng-click="navMapMoveToRight()"></a>
-							<br />
-							<a href="#" class="nav-arrow down" ng-click="navMapMoveToDown()"></a>
-						</nav>
-					</div>
-
-					<div>
-						<label for="">x</label>
-						<input type="text" value="{{currentx}}" class="nav-map-x" ng-model="currentx">
-						<label for="">y</label>
-						<input type="text" value="{{currenty}}" class="nav-map-y" ng-model="currenty">
-					</div>
-
-				</div>
-
-				<!-- Hexagone -->
-				<!-- <div class="col-md-5">
-					<div class="map" tabindex="0" ng-keydown="navMapMoveKeyPress($event)">
-						<div class="inside-map" ng-animate="'slide'">
-							<div class="hex-row" ng-repeat="row in tiles track by $index">
-								<div class="hexagon tile-ground-{{tile.info.cell.s}} tile-player-{{tile.info.cell.j}}" ng-repeat="tile in row track by $index">
-									<span class="shadow"></span>
-									<div class="hex-content">
-										<div class="tile-player tile-player-{{tile.info.cell.j}}"></div>
-										<p>({{tile.info.cell.x}} | {{tile.info.cell.y}})</p>
-										<p>x:{{tile.coord.x}} y:{{tile.coord.y}}</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div> -->
-
-				<!-- Square -->
-				<div class="col-md-5">
-					<div class="map" tabindex="0" ng-keydown="navMapMoveKeyPress($event)">
-						<div class="inside-map">
-							<div class="square-row" ng-repeat="row in tiles track by $index">
-								<div class="square tile-ground-{{tile.field.type}} tile-player-{{tile.owner.type}}" ng-repeat="tile in row track by $index" ng-dblclick="tileShowInfo(tile.id)">
-									<!-- <span class="shadow"></span> -->
-									<div class="square-content">
-										<div class="tile-player tile-player-{{tile.owner.type}}"></div>
-										<p>({{tile.coord.x}} | {{tile.coord.y}})</p>
-										<!-- <p>{{tile.id}}</p> -->
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
+		<div ng-view>
 		</div>
 
-		<div id="modalTileInfo" class="modal fade" tabindex="-1" role="dialog">
-			<div class="modal-dialog modal-sm">
-				<div class="modal-content">
-					<!-- <div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title">Modal title</h4>
-					</div> -->
-					<div class="modal-body">
-						<div class="spinner center-block"><img src="./images/loader/kit.gif" alt="spinner"></div>
-						<div class="tile-info">
-							<div class="tile-coord">coordonnées : ({{tileInfo.coord.x}} | {{tileInfo.coord.y}})</div>
-							<div class="tile-owner">owner : {{tileInfo.owner.name}}</div>
-							<div class="tile-owner-type">type : {{tileInfo.owner.type}}</div>
-							<div class="tile-owner-class">class : {{tileInfo.owner.class}}</div>
-							<div class="tile-field-type">field : {{tileInfo.field.type}}</div>
-						</div>
-						<div class="tile-action-{{tileInfo.owner.type}}">
-							<label for="">Action</label>
-							<button class="btn" ng-click="tileEnter()" ng-show="'player' == tileInfo.owner.type">Entrer</button>
-							<button class="btn" ng-click="tileHelp()" ng-show="'ally' == tileInfo.owner.type">Aider</button>
-							<button class="btn" ng-click="tilePock()" ng-show="'neutral' == tileInfo.owner.type">Dire Bonjour</button>
-							<button class="btn" ng-click="tileAttack()" ng-show="'enemy' == tileInfo.owner.type">Attaquer</button>
-							<button class="btn" ng-click="tileRaid()" ng-show="'barbarian' == tileInfo.owner.type">Raid</button>
-							<button class="btn" ng-click="tileExplore()" ng-show="'nature' == tileInfo.owner.type">Explorer</button>
-						</div>
-					</div>
-					<!-- <div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
-					</div> -->
-				</div>
-			</div>
-		</div>
-
-
-
+		<!-- Latest compiled and minified JavaScript -->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.min.js"></script>
-		<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.min.js"></script> -->
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.min.js"></script>
 		<script type="text/javascript" src="https://cdn.jsdelivr.net/lodash/4.6.1/lodash.min.js"></script>
+		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 		<!-- Script Angular -->
 		<script type="text/javascript" src="./app/app.js"></script>
+		<script type="text/javascript" src="./app/config/config.js"></script>
+		<script tpye="text/javascript" src="./app/config/route.config.js"></script>
+		<!-- Controllers -->
+		<script type="text/javascript" src="./app/Controllers/UserConnectionController.js"></script>
+		<script type="text/javascript" src="./app/Controllers/UserSigninController.js"></script>
 		<script type="text/javascript" src="./app/Controllers/SquareGridController.js"></script>
+		<!-- Services / Factories -->
+		<script type="text/javascript" src="./app/Factories/UserFactory.js"></script>
 		<script type="text/javascript" src="./app/Factories/TilesFactory.js"></script>
 
-		<!-- Latest compiled and minified JavaScript -->
-		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 	</body>
 </html>

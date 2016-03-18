@@ -1,2 +1,5 @@
-var app = angular.module('gamegrid', ['ngResource']);
+var app = angular.module('gamegrid', [
+	'ngResource',
+	'ngRoute'
+]);
 

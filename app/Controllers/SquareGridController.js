@@ -1,4 +1,4 @@
-app.controller('SquareGridController', function ($scope, TilesFactory) {
+app.controller('SquareGridController', ['$scope', 'TilesFactory', function ($scope, TilesFactory) {
 
 	$scope.tiles = [[]];
 
@@ -31,11 +31,11 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 	}
 	$scope.navMapMoveToRight = function() {
 		// X axis
-		if ($scope.currentx < $scope.maxxTiles - $scope.maxx) $scope.currentx++;
+		if ($scope.currentx <= $scope.maxxTiles - $scope.maxx) $scope.currentx++;
 	}
 	$scope.navMapMoveToDown = function() {
 		// Y axis
-		if ($scope.currenty < $scope.maxyTiles - $scope.maxy) $scope.currenty++;
+		if ($scope.currenty <= $scope.maxyTiles - $scope.maxy) $scope.currenty++;
 	}
 	$scope.navMapMoveToLeft = function() {
 		// X axis
@@ -136,11 +136,15 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 	function makeMap() {
 		getMatrixTiles(function(tiles) {
 			$scope.tiles = tiles;
+		}, function(response) {
+			console.log('error %o', response);
+			$scope.tiles = [[]];
+
 		});
 	}
 
-	function getMatrixTiles(callback) {
-		console.log('getMatrixTiles');
+	function getMatrixTiles(callback, errorHandler) {
+		// console.log('getMatrixTiles');
 
 		var tiles = [[]];
 		var maxx, maxy, currentx, currenty, maxxTiles, maxyTiles;
@@ -151,21 +155,19 @@ app.controller('SquareGridController', function ($scope, TilesFactory) {
 		maxxTiles = parseInt($scope.maxxTiles);
 		maxyTiles = parseInt($scope.maxyTiles);
 
-		console.log('(%s | %s)', currentx, currenty);
+		// console.log('(%s | %s)', currentx, currenty);
 
-		for (var j = 0; j < maxy; j++) {
-			tiles[j] = [];
-			tiles[j] = new Array(maxx);
-		}
-
-		var dataSend = {maxxtiles: maxxTiles, maxytiles: maxyTiles, maxx: maxx, maxy: maxy, currentx: currentx, currenty: currenty};
-		TilesFactory.get(dataSend, function(data) {
-			angular.extend(tiles, data.matrixTiles);
-			tiles = data.matrixTiles;
+		var params = {gridmapid: '56ebd5c6ad5fe4a6bc3484c2', maxx: maxx, maxy: maxy, currentx: currentx, currenty: currenty};
+		TilesFactory.getLocalTiles(params).$promise.then(function(data) {
+			tiles = data.tiles;
 			if (typeof callback === 'function') {
 				callback(tiles);
+			}
+		}, function(response) {
+			if (typeof errorHandler === 'function') {
+				errorHandler(response);
 			}
 		});
 	}
 
-});
+}]);

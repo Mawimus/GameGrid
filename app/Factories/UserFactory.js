@@ -1,7 +1,7 @@
-app.factory('UserFactory', function() {
+app.factory('UserFactory', ['$resource', function($resource) {
 
 
 
 
 
-});
+}]);

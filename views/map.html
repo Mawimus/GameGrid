@@ -1,0 +1,99 @@
+<div class="container">
+	<div class="row">
+
+		<div class="col-md-2">
+
+			<div class="strut"></div>
+			<div>
+				<nav class="nav-map">
+					<a href="#" class="nav-arrow up" ng-click="navMapMoveToUp()"></a>
+					<br />
+					<a href="#" class="nav-arrow left" ng-click="navMapMoveToLeft()"></a>
+					<a class="center" ng-click="navMapMoveReset()"></a>
+					<a href="#" class="nav-arrow right" ng-click="navMapMoveToRight()"></a>
+					<br />
+					<a href="#" class="nav-arrow down" ng-click="navMapMoveToDown()"></a>
+				</nav>
+			</div>
+
+			<div>
+				<label for="">x</label>
+				<input type="text" value="{{currentx}}" class="nav-map-x" ng-model="currentx">
+				<label for="">y</label>
+				<input type="text" value="{{currenty}}" class="nav-map-y" ng-model="currenty">
+			</div>
+
+		</div>
+
+		<!-- Hexagone -->
+		<!-- <div class="col-md-5">
+			<div class="map" tabindex="0" ng-keydown="navMapMoveKeyPress($event)">
+				<div class="inside-map" ng-animate="'slide'">
+					<div class="hex-row" ng-repeat="row in tiles track by $index">
+						<div class="hexagon tile-ground-{{tile.info.cell.s}} tile-player-{{tile.info.cell.j}}" ng-repeat="tile in row track by $index">
+							<span class="shadow"></span>
+							<div class="hex-content">
+								<div class="tile-player tile-player-{{tile.info.cell.j}}"></div>
+								<p>({{tile.info.cell.x}} | {{tile.info.cell.y}})</p>
+								<p>x:{{tile.coord.x}} y:{{tile.coord.y}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> -->
+
+		<!-- Square -->
+		<div class="col-md-5">
+			<div class="map" tabindex="0" ng-keydown="navMapMoveKeyPress($event)">
+				<div class="inside-map">
+					<div class="square-row" ng-repeat="row in tiles track by $index">
+						<div class="square tile-ground-{{tile.field}} tile-player-{{tile.owner}}" ng-repeat="tile in row track by $index" ng-dblclick="tileShowInfo(tile.id)">
+							<!-- <span class="shadow"></span> -->
+							<div class="square-content">
+								<div class="tile-player tile-player-{{tile.owner}}"></div>
+								<p>({{tile.coord.x}} | {{tile.coord.y}})</p>
+								<!-- <p>{{tile.id}}</p> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div id="modalTileInfo" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<!-- <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Modal title</h4>
+			</div> -->
+			<div class="modal-body">
+				<div class="spinner center-block"><img src="./images/loader/kit.gif" alt="spinner"></div>
+				<div class="tile-info">
+					<div class="tile-coord">coordonnées : ({{tileInfo.coord.x}} | {{tileInfo.coord.y}})</div>
+					<div class="tile-owner">owner : {{tileInfo.owner.name}}</div>
+					<div class="tile-owner-type">type : {{tileInfo.owner.type}}</div>
+					<div class="tile-owner-class">class : {{tileInfo.owner.class}}</div>
+					<div class="tile-field-type">field : {{tileInfo.field.type}}</div>
+				</div>
+				<div class="tile-action-{{tileInfo.owner.type}}">
+					<label for="">Action</label>
+					<button class="btn" ng-click="tileEnter()" ng-show="'player' == tileInfo.owner.type">Entrer</button>
+					<button class="btn" ng-click="tileHelp()" ng-show="'ally' == tileInfo.owner.type">Aider</button>
+					<button class="btn" ng-click="tilePock()" ng-show="'neutral' == tileInfo.owner.type">Dire Bonjour</button>
+					<button class="btn" ng-click="tileAttack()" ng-show="'enemy' == tileInfo.owner.type">Attaquer</button>
+					<button class="btn" ng-click="tileRaid()" ng-show="'barbarian' == tileInfo.owner.type">Raid</button>
+					<button class="btn" ng-click="tileExplore()" ng-show="'nature' == tileInfo.owner.type">Explorer</button>
+				</div>
+			</div>
+			<!-- <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div> -->
+		</div>
+	</div>
+</div>

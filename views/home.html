@@ -6,15 +6,15 @@
 				<div class="container">
 					<form class="form-horizontal">
 						<h2>J'accède à mon royaume</h2>
-						<input type="email" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
-						<input type="password" class="form-control" placeholder="Password" required="required">
+						<input type="text" class="form-control" ng-model="email" placeholder="Email address" autofocus="autofocus">
+						<input type="password" class="form-control" ng-model="password" placeholder="Password">
 						<div class="checkbox">
 							<label class="help-block">
 								<input type="checkbox" value="remember-me">
 								Se souvenir de moi
 							</label>
 						</div>
-						<button class="btn btn-lg btn-primary btn-block" ng-click="login()">> Me connecter</button>
+						<button class="btn btn-lg btn-primary btn-block" ng-click="doLogin()">> Me connecter</button>
 					</form>
 				</div>
 
@@ -23,7 +23,7 @@
 
 				<div class="container">
 					<h2>Ma première connexion</h2>
-					<button class="btn btn-lg btn-primary btn-block" ng-click="signin()">> Créer mon royaume</button>
+					<button class="btn btn-lg btn-primary btn-block" ng-click="doSignin()">> Créer mon royaume</button>
 				</div>
 
 			</div>

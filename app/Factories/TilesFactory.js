@@ -12,7 +12,7 @@ app.factory('TilesFactory', ['$resource', 'apiBaseUrl', function($resource, apiB
 	// 	},
 	// };
 
-	return $resource(apiBaseUrl + '/tile/', null, {
+	return $resource(apiBaseUrl + 'tile/', null, {
 		getLocalTiles: {
 			method: 'GET',
 			url: apiBaseUrl + 'localtiles/:gridmapid/:maxx/:maxy/:currentx/:currenty/',

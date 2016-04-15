@@ -1,0 +1,23 @@
+<div class="container">
+	<form name="userconfiguration" ng-submit="doConfiguration()" class="form-horizontal" novalidate>
+		<div ng-class="localisationClass" class="form-group">
+			<label for="location">Select your location</label>
+			<select name="location" id="location" ng-model="location" class="form-control" required>
+				<option value="random">Random</option>
+				<option value="north">North</option>
+				<option value="east">East</option>
+				<option value="south">South</option>
+				<option value="west">West</option>
+			</select>
+		</div>
+		<div ng-class="nationClass" class="form-group">
+			<label for="nation">Select our nation</label>
+			<select name="nation" id="nation" ng-model="nation" class="form-control" required>
+				<option value="egyptian">Egyptian</option>
+				<option value="roman">Roman</option>
+				<option value="german">German</option>
+				<option value="gallic">Gallic</option>
+			</select>
+		</div>
+	</form>
+</div>

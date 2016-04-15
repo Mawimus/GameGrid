@@ -1,12 +1,40 @@
 <div class="container">
-	<div action="" class="form-horizontal">
-		<label>* Champs obligatoires</label>
-		<input type="text" ng-model="email" class="form-control" placeholder="Email" autofocus="autofocus" />
-		<input type="text" ng-model="pseudo" class="form-control" placeholder="Pseudo" />
-		<input type="password" ng-model="password" class="form-control" placeholder="Password" />
-		<input type="password" ng-model="passwordcontrol" class="form-control" placeholder="Password again" />
+	<form name="signinform" ng-submit="doSignin()" class="form-horizontal" novalidate>
+		<div ng-class="serverClass" class="form-group">
+			<label for="server">Select yout server</label>
+			<select name="server" id="server" ng-model="server" class="form-control" required>
+				<option value=""></option>
+			</select>
+		</div>
+
+		<hr />
+
+		<div ng-class="emailClass" class="form-group">
+			<input type="email" name="email" ng-model="email" class="form-control" placeholder="Email" autofocus required />
+			<span ng-show="emailError" class="help-block">
+				{{emailErrorMsg}}
+			</span>
+		</div>
+		<div ng-class="pseudoClass" class="form-group">
+			<input type="text" name="pseudo" ng-model="pseudo" class="form-control" placeholder="Pseudo" required />
+			<span ng-show="pseudoError" class="help-block">
+				{{pseudoErrorMsg}}
+			</span>
+		</div>
+		<div ng-class="passwordClass" class="form-group">
+			<input type="password" name="password" ng-model="password" class="form-control" placeholder="Password" required />
+			<span ng-show="passwordError" class="help-block">
+				{{passwordErrorMsg}}
+			</span>
+		</div>
+		<div ng-class="confirmPasswordClass" class="form-group">
+			<input type="password" name="confirmpassword" ng-model="confirmPassword" match="password" class="form-control" placeholder="Check Password" required />
+			<span ng-show="confirmPasswordError" class="help-block">
+				{{confirmPasswordErrorMsg}}
+			</span>
+		</div>
 		<div class="g-recaptcha" data-sitekey="6LdTzRoTAAAAAF1HEYgGGGYUoeffzJNbg2Z-wvOJ"></div>
-		<button class="btn btn-lg btn-default btn-block" ng-click="doBack()">Retour</button>
-		<button class="btn btn-lg btn-primary btn-block" ng-click="doSignin()">Valider</button>
-	</div>
+		<input type="button" value="Retour" class="btn btn-lg btn-default btn-block" ng-click="doBack()" />
+		<input type="submit" value="Valider" class="btn btn-lg btn-primary btn-block" />
+	</form>
 </div>

@@ -11,6 +11,10 @@ app.config(['$routeProvider', function($routeProvider) {
 			templateUrl: 'views/signin.html',
 			controller: 'UserSigninController'
 		})
+		.when('/clan-configuration', {
+			templateUrl: 'views/user-configuration.html',
+			controller: 'UserConfigurationController'
+		})
 		.when('/map', {
 			templateUrl: 'views/map.html',
 			controller: 'SquareGridController'

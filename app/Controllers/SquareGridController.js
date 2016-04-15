@@ -157,7 +157,7 @@ app.controller('SquareGridController', ['$scope', 'TilesFactory', function ($sco
 
 		// console.log('(%s | %s)', currentx, currenty);
 
-		var params = {gridmapid: '56ebd5c6ad5fe4a6bc3484c2', maxx: maxx, maxy: maxy, currentx: currentx, currenty: currenty};
+		var params = {gridmapid: '56f26fcf9d9b8189031ea2d1', maxx: maxx, maxy: maxy, currentx: currentx, currenty: currenty};
 		TilesFactory.getLocalTiles(params).$promise.then(function(data) {
 			tiles = data.tiles;
 			if (typeof callback === 'function') {

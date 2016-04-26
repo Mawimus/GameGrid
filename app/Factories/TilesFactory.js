@@ -15,7 +15,7 @@ app.factory('TilesFactory', ['$resource', 'apiBaseUrl', function($resource, apiB
 	return $resource(apiBaseUrl + 'tile/', null, {
 		getLocalTiles: {
 			method: 'GET',
-			url: apiBaseUrl + 'localtiles/:gridmapid/:maxx/:maxy/:currentx/:currenty/',
+			url: apiBaseUrl + 'localtiles/:worldid/:maxx/:maxy/:currentx/:currenty/',
 			params: {format: 'json'}
 			// isArray: true
 		}

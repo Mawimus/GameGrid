@@ -1,10 +1,13 @@
 <div class="container">
-	<form name="signinform" ng-submit="doSignin()" class="form-horizontal" novalidate>
-		<div ng-class="serverClass" class="form-group">
-			<label for="server">Select yout server</label>
-			<select name="server" id="server" ng-model="server" class="form-control" required>
-				<option value=""></option>
+	<form name="signinform" class="form-horizontal" ng-submit="doSignin()" novalidate>
+		<div ng-class="worldClass" class="form-group">
+			<span ng-show="worldSpinner"><img src="./../images/loader/kit.gif" alt="loading"></span>
+			<select name="world" class="form-control" ng-model="world" ng-options="world as world.world.name for world in worlds track by world._id" required>
+				<option value="">Choisir un royaume</option>
 			</select>
+			<span ng-show="worldError" class="help-block">
+				{{worldErrorMsg}}
+			</span>
 		</div>
 
 		<hr />
@@ -22,13 +25,13 @@
 			</span>
 		</div>
 		<div ng-class="passwordClass" class="form-group">
-			<input type="password" name="password" ng-model="password" class="form-control" placeholder="Password" required />
+			<input type="password" name="password" ng-model="password" class="form-control" placeholder="Mot de passe" required />
 			<span ng-show="passwordError" class="help-block">
 				{{passwordErrorMsg}}
 			</span>
 		</div>
 		<div ng-class="confirmPasswordClass" class="form-group">
-			<input type="password" name="confirmpassword" ng-model="confirmPassword" match="password" class="form-control" placeholder="Check Password" required />
+			<input type="password" name="confirmpassword" ng-model="confirmPassword" match="password" class="form-control" placeholder="Vérification du mot de passe" required />
 			<span ng-show="confirmPasswordError" class="help-block">
 				{{confirmPasswordErrorMsg}}
 			</span>

@@ -8,11 +8,11 @@ app.factory('UserFactory', ['$http', '$q', '$resource', 'apiBaseUrl', function($
 	function connection(params) {
 		var request =  $http({
 			method: 'POST',
-			url: apiBaseUrl + 'user/connect/',
+			url: apiBaseUrl + 'user/connect/' + params.world._id,
 			headers: {
 				'Content-Type': 'application/json; charset=utf-8'
 			},
-			data: params
+			data: {login: params.login, password: params.password}
 		});
 
 		return request;
@@ -21,11 +21,11 @@ app.factory('UserFactory', ['$http', '$q', '$resource', 'apiBaseUrl', function($
 	function create(params) {
 		var request = $http({
 			method: 'POST',
-			url: apiBaseUrl + 'user/',
+			url: apiBaseUrl + 'user/' + params.world._id,
 			headers: {
 				'Content-Type': 'application/json; charset=utf-8'
 			},
-			data: params
+			data: {email: params.email, login: params.login, pseudo: params.pseudo, password: params.password}
 		});
 
 		return request;

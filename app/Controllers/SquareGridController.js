@@ -1,4 +1,7 @@
-app.controller('SquareGridController', ['$scope', 'TilesFactory', function ($scope, TilesFactory) {
+app.controller('SquareGridController', ['$scope', '$window', 'TilesFactory', function ($scope, $window, TilesFactory) {
+
+	if (sessionStorage.getItem('player')) $scope.player = JSON.parse(sessionStorage.getItem('player'));
+	else $window.location.href = '#/home';
 
 	$scope.tiles = [[]];
 
@@ -147,7 +150,8 @@ app.controller('SquareGridController', ['$scope', 'TilesFactory', function ($sco
 		// console.log('getMatrixTiles');
 
 		var tiles = [[]];
-		var maxx, maxy, currentx, currenty, maxxTiles, maxyTiles;
+		var player, maxx, maxy, currentx, currenty, maxxTiles, maxyTiles;
+		player = $scope.player;
 		maxx = parseInt($scope.maxx);
 		maxy = parseInt($scope.maxy);
 		currentx = parseInt($scope.currentx);
@@ -157,7 +161,7 @@ app.controller('SquareGridController', ['$scope', 'TilesFactory', function ($sco
 
 		// console.log('(%s | %s)', currentx, currenty);
 
-		var params = {worldid: '571f89e8de46cc161620a973', maxx: maxx, maxy: maxy, currentx: currentx, currenty: currenty};
+		var params = {worldId: player.worldId, maxx: maxx, maxy: maxy, currentx: currentx, currenty: currenty};
 		TilesFactory.getLocalTiles(params).$promise.then(function(data) {
 			tiles = data.tiles;
 			if (typeof callback === 'function') {

@@ -1,15 +1,38 @@
-app.controller('UserSigninController', ['$scope', '$window', 'UserFactory', function($scope, $window, UserFactory) {
+app.controller('UserSigninController', ['$scope', '$window', 'UserFactory', 'WorldFactory', function($scope, $window, UserFactory, WorldFactory) {
+
+	$scope.worlds = [];
+	$scope.worldSpinner = true;
+
+	WorldFactory.getWorlds().then(function(response) {
+		$scope.worlds = response.data;
+		$scope.worldSpinner = false;
+	}, function(errorMessage) {
+		console.log('error: ', errorMessage);
+	});
+
 
 	$scope.doSignin = function() {
 
-		var email = $scope.email,
+		var world = $scope.world,
+			email = $scope.email,
 			pseudo = $scope.pseudo,
 			password = $scope.password,
 			passwordControl = $scope.passwordControl,
 			hashpassword = password,
-			params = {email: email, login: email, pseudo: pseudo, password: hashpassword};
+			params = {world: world, email: email, login: email, pseudo: pseudo, password: hashpassword};
 
 		console.log('paramètres : %o', params);
+
+		/* Control sur le monde */
+		if ($scope.signinform.world.$invalid) {
+			$scope.worldClass = 'has-error';
+			$scope.worldError = true;
+			if ($scope.signinform.world.$error.required) $scope.worldErrorMsg = 'Le monde est obligatoire';
+		} else {
+			$scope.worldClass = '';
+			$scope.worldError = false;
+			$scope.worldErrorMsg = '';
+		}
 
 		/* Control sur l'email */
 		if ($scope.signinform.email.$invalid) {

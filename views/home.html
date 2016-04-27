@@ -4,17 +4,33 @@
 			<div class="col-md-6">
 
 				<div class="container">
-					<form class="form-horizontal">
+					<form name="loginform" class="form-horizontal" ng-submit="doLogin()" novalidate>
 						<h2>J'accède à mon royaume</h2>
-						<input type="text" class="form-control" ng-model="email" placeholder="Email address" autofocus="autofocus">
-						<input type="password" class="form-control" ng-model="password" placeholder="Password">
-						<div class="checkbox">
-							<label class="help-block">
-								<input type="checkbox" value="remember-me">
+						<div ng-class="worldClass" class="form-group">
+							<span ng-show="worldSpinner"><img src="./../images/loader/kit.gif" alt="loading"></span>
+							<select name="world" class="form-control" ng-model="world" ng-options="world as world.world.name for world in worlds track by world._id" autofocus required>
+								<option value="">Choisir un royaume</option>
+							</select>
+						</div>
+						<div ng-class="emailClass" class="form-group">
+							<input type="email" name="email" ng-model="email" class="form-control" placeholder="Email" required />
+							<span ng-show="emailError" class="help-block">
+								{{emailErrorMsg}}
+							</span>
+						</div>
+						<div ng-class="passwordClass" class="form-group">
+							<input type="password" name="password" ng-model="password" class="form-control" placeholder="Mot de passe" required />
+							<span ng-show="passwordError" class="help-block">
+								{{passwordErrorMsg}}
+							</span>
+						</div>
+						<div class="form-group checkbox">
+							<label>
+								<input type="checkbox" name="rememberme" value="remember-me" ng-model="rememberme" />
 								Se souvenir de moi
 							</label>
 						</div>
-						<button class="btn btn-lg btn-primary btn-block" ng-click="doLogin()">> Me connecter</button>
+						<input type="submit" value="> Me connecter" class="btn btn-lg btn-primary btn-block" />
 					</form>
 				</div>
 
